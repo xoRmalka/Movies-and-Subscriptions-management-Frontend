@@ -14,12 +14,12 @@ export default function Movie(props) {
     setMovie(props.data);
   }, [props.data]);
 
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //   const editUser = () => {
-  //     navigate(`/users_management/edit_user/${user._id}`, { state: { user } });
-  //   };
+  const editMovie = () => {
+    navigate(`/movies/edit_movie/${movie._id}`, { state: { movie } });
+  };
 
   //   const deleteUser = async () => {
   //     try {
@@ -36,20 +36,17 @@ export default function Movie(props) {
       <h2>
         {movie?.name}, {premieredYear}
       </h2>
-      <br />
       <span>Genres: {movie?.genres.join(", ")}</span>
       <br />
-      <br/>
+      <br />
       <img src={movie?.image} />
-      
-      {/* <button onClick={editUser}>Edit</button>{" "}
-      <button onClick={deleteUser}>Delete</button> */}
+      {/* <button onClick={deleteUser}>Delete</button> */}
       {movie?.membersWhoWatched && (
         <MembersWhoWatched data={movie.membersWhoWatched} />
       )}
-      <br/>
-      <br/>
-      <button>Edit</button> <button>Delete</button>
+      <button onClick={editMovie}>Edit</button> <button>Delete</button>
+      <br />
+      <br />
     </div>
   );
 }

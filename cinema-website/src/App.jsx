@@ -18,6 +18,7 @@ import UsersPage from "./Pages/UsersPage/UsersPage";
 import EditUserPage from "./Pages/EditUserPage/EditUserPage";
 import MoviesPage from "./Pages/MoviesPage/MoviesPage";
 import AddMoviePage from "./Pages/AddMoviePage/AddMoviePage";
+import EditMoviePage from "./Pages/EditMoviePage/EditMoviePage";
 
 function App() {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ function App() {
         <Route path="/movies" element={<MoviesManagementPage />}>
           <Route path="" element={<MoviesPage />} />
           <Route path="add_movie" element={<AddMoviePage />} />
+          <Route path="edit_movie/:id" element={<EditMoviePage />} />
         </Route>
         {/* SUBSCRIPTIONS */}
         <Route path="/subscriptions" element={<SubscriptionsPage />} />

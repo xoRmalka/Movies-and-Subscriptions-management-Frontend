@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import crud from "../../Utils/Crud";
 
 export default function AddMoviePage() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -36,7 +35,6 @@ export default function AddMoviePage() {
         "http://localhost:8000/subscriptions/movies",
         formData
       );
-      console.log(newMovie)
 
       dispatch({ type: "ADD_MOVIE", payload: newMovie });
     } catch (error) {
@@ -44,7 +42,7 @@ export default function AddMoviePage() {
     }
 
     // redirect back to the "All Movies" page
-    navigate("/movies")
+    navigate("/movies");
   };
 
   return (

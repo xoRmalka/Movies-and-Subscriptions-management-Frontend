@@ -7,7 +7,7 @@ import NavBar from "../../Components/NavBar";
 export default function HomePage() {
   const navigate = useNavigate();
   const storeData = useSelector((state) => state.user);
-// לבגדיר שיחזיר אחרי לוג אין לסלאש שזה ה APP.JSX
+  // לבגדיר שיחזיר אחרי לוג אין לסלאש שזה ה APP.JSX
   const verifyToken = async () => {
     //not fast enough
     const token = storeData?.token;

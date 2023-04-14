@@ -36,8 +36,19 @@ const appReducer = (state = {}, action) => {
     case "ADD_MOVIE":
       // Create a new movies array with the added movie object
       const addedMovies = [...state.movies, action.payload];
-      console.log(action.payload)
       return { ...state, movies: addedMovies };
+    case "UPDATE_MOVIE":
+      // Find the index of the movie to be updated
+      const updatedMovieIndex = state.movies.findIndex(
+        (movie) => movie._id === action.payload._id
+      );
+      // Create a new movies array with the updated movie object
+      const updatedMovies = [
+        ...state.movies.slice(0, updatedMovieIndex),
+        action.payload,
+        ...state.movies.slice(updatedMovieIndex + 1),
+      ];
+      return { ...state, movies: updatedMovies };
 
     default:
       return state;
