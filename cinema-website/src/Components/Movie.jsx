@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MembersWhoWatched from "./MembersWhoWatched";
+import crud from "../Utils/Crud";
 
 export default function Movie(props) {
   const [movie, setMovie] = useState(props.data);
@@ -21,15 +22,21 @@ export default function Movie(props) {
     navigate(`/movies/edit_movie/${movie._id}`, { state: { movie } });
   };
 
-  //   const deleteUser = async () => {
-  //     try {
-  //       await crud.deleteItem("http://localhost:8000/cinema", user._id);
-  //       // Dispatch the DELETE_USER action with the user id as payload
-  //       dispatch({ type: "DELETE_USER", payload: user._id });
-  //     } catch (error) {
-  //       console.log("Error deleting user: ", error);
-  //     }
-  //   };
+  const deleteMovie = async () => {
+    try {
+      await crud.deleteItem(
+        "http://localhost:8000/subscriptions/movies",
+        movie._id
+      );
+
+      dispatch({ type: "DELETE_MOVIE", payload: movie._id });
+    } catch (error) {
+      console.log("Error deleteing movie: ", error);
+    }
+
+    // redirect back to the "All Movies" page
+    navigate("/movies");
+  };
 
   return (
     <div className="movie-container" style={{ border: "1px solid purple" }}>
@@ -40,11 +47,12 @@ export default function Movie(props) {
       <br />
       <br />
       <img src={movie?.image} />
-      {/* <button onClick={deleteUser}>Delete</button> */}
       {movie?.membersWhoWatched && (
         <MembersWhoWatched data={movie.membersWhoWatched} />
       )}
-      <button onClick={editMovie}>Edit</button> <button>Delete</button>
+      <br />
+      <button onClick={editMovie}>Edit</button>{" "}
+      <button onClick={deleteMovie}>Delete</button>
       <br />
       <br />
     </div>

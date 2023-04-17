@@ -49,6 +49,11 @@ const appReducer = (state = {}, action) => {
         ...state.movies.slice(updatedMovieIndex + 1),
       ];
       return { ...state, movies: updatedMovies };
+    case "DELETE_MOVIE":
+      const filteredMovies = state.movies.filter(
+        (movie) => movie._id !== action.payload
+      );
+      return { ...state, movies: filteredMovies };
 
     default:
       return state;

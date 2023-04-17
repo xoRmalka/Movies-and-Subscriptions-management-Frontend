@@ -10,12 +10,13 @@ export default function AddUserPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  const [user, setUser] = useState(location.state?.user || {
+  const [user, setUser] = useState({
     firstName: "",
     lastName: "",
-  permissions: [],
+    username: "",
+    permissions: [],
   });
+
   const [permissions, setPermissions] = useState(user?.permissions || []);
 
   const handlePermissionChange = (e) => {
@@ -68,11 +69,8 @@ export default function AddUserPage() {
   };
 
   useEffect(() => {
-
     setUser({ ...user, permissions: permissions });
   }, [permissions]);
-
-
 
   const updateState = async () => {
     try {
@@ -93,9 +91,8 @@ export default function AddUserPage() {
   const handleUpdateUser = async () => {
     // update the user object with the new permissions
     setUser({ ...user, permissions: permissions });
-    updateState()
-  }
-
+    updateState();
+  };
 
   return (
     <div>
@@ -208,7 +205,8 @@ export default function AddUserPage() {
           </label>
           <br />
         </div>
-        <button onClick={handleUpdateUser}>Add</button> <button onClick={() => navigate("/users_management/")}>Cancel</button>
+        <button onClick={handleUpdateUser}>Add</button>{" "}
+        <button onClick={() => navigate("/users_management/")}>Cancel</button>
       </div>
     </div>
   );

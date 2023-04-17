@@ -12,7 +12,7 @@ export default function MoviesPage() {
 
   useEffect(() => {
     setMovies(moviesTest);
-  }, []);
+  }, [moviesTest]);
 
   useEffect(() => {
     setFilteredMovies(movies);

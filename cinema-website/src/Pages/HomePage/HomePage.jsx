@@ -34,9 +34,7 @@ export default function HomePage() {
 
   return (
     <div>
-      HomePage
-      <br />
-      Name:{`${storeData?.firstName}  ${storeData?.lastName}`}
+      <h1>{`Welcome back ${storeData?.firstName}!`}</h1>
     </div>
   );
 }
