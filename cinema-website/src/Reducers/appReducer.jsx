@@ -54,7 +54,8 @@ const appReducer = (state = {}, action) => {
         (movie) => movie._id !== action.payload
       );
       return { ...state, movies: filteredMovies };
-
+    case "SET_MEMBERS":
+      return { ...state, members: action.payload };
     default:
       return state;
   }

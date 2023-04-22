@@ -42,10 +42,16 @@ export default function LoginPage() {
 
         //!!!!!!CHECK PRMISSION!!!!!
         const { data: movies } = await crud.getAllItems(
-          "http://localhost:8000/subscriptions/"
+          "http://localhost:8000/subscriptions/movies"
         );
         dispatch({ type: "SET_MOVIES", payload: movies });
       }
+
+      //!!!!!!CHECK PRMISSION!!!!!
+      const { data: members } = await crud.getAllItems(
+        "http://localhost:8000/subscriptions/members"
+      );
+      dispatch({ type: "SET_MEMBERS", payload: members });
 
       // Navigate to the home page
       navigate("/");

@@ -10,7 +10,7 @@ import CreateAccount from "./Pages/CreateAccount/CreateAccount";
 import LoginPage from "./Pages/LoginPage/loginPage";
 import HomePage from "./Pages/HomePage/HomePage";
 import MoviesManagementPage from "./Pages/MoviesManagementPage/MoviesManagementPage";
-import SubscriptionsPage from "./Pages/SubscriptionsPage/SubscriptionsPage";
+import SubscriptionsPage from "./Pages/SubscriptionsManagementPage/SubscriptionsManagementPage";
 import UsersManagementPage from "./Pages/UsersManagementPage/UsersManagementPage";
 import AddUserPage from "./Pages/AddUserPage/AddUserPage";
 import NavBar from "./Components/NavBar";
@@ -19,6 +19,10 @@ import EditUserPage from "./Pages/EditUserPage/EditUserPage";
 import MoviesPage from "./Pages/MoviesPage/MoviesPage";
 import AddMoviePage from "./Pages/AddMoviePage/AddMoviePage";
 import EditMoviePage from "./Pages/EditMoviePage/EditMoviePage";
+import SubscriptionsManagementPage from "./Pages/SubscriptionsManagementPage/SubscriptionsManagementPage";
+import AllMembersPage from "./Pages/AllMembersPage/AllMembersPage";
+import AddMemberPage from "./Pages/AddMemberPage/AddMemberPage";
+import EditMemberPage from "./Pages/EditMemberPage/EditMemberPage";
 
 function App() {
   const navigate = useNavigate();
@@ -62,8 +66,11 @@ function App() {
           <Route path="edit_movie/:id" element={<EditMoviePage />} />
         </Route>
         {/* SUBSCRIPTIONS */}
-        <Route path="/subscriptions" element={<SubscriptionsPage />} />
-
+        <Route path="/subscriptions" element={<SubscriptionsManagementPage />}>
+          <Route path="" element={<AllMembersPage />} />
+          <Route path="add_member" element={<AddMemberPage />} />
+          <Route path="edit_member/:id" element={<EditMemberPage />} />
+        </Route>
         {/* USERS-MANAGMENT */}
         <Route path="/users_management" element={<UsersManagementPage />}>
           <Route path="" element={<UsersPage />} />

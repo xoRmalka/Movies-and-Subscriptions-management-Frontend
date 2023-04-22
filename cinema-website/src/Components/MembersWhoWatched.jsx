@@ -6,8 +6,9 @@ export default function MembersWhoWatched(props) {
 
   const navigate = useNavigate();
 
-  const handleMemberClick = (memberId) => {
-    navigate(`/members/${memberId}`);
+  const handleMemberClick = (e, memberId) => {
+    e.preventDefault();
+    navigate(`/subscriptions/edit_member/${memberId}`);
   };
 
   return (
@@ -16,7 +17,7 @@ export default function MembersWhoWatched(props) {
       <ul>
         {membersWhoWatched.map((member, index) => (
           <li key={index}>
-            <a href="" onClick={() => handleMemberClick(member.id)}>
+            <a href="" onClick={(e) => handleMemberClick(e, member._id)}>
               {member.name}
             </a>{" "}
             add date

@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Movie from "../../Components/Movie";
 import "./MoviesPage.css";
 
 export default function MoviesPage() {
-  const moviesTest = useSelector((state) => state.movies);
-  const [movies, setMovies] = useState([]);
+  const movies = useSelector((state) => state.movies);
 
   const [searchValue, setSearchValue] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
 
-  useEffect(() => {
-    setMovies(moviesTest);
-  }, [moviesTest]);
+  const location = useLocation();
+  const movieId = new URLSearchParams(location.search).get("id");
 
   useEffect(() => {
-    setFilteredMovies(movies);
-  }, [movies]);
+    if (movieId) {
+      const filteredMovie = movies.find((movie) => movie._id === movieId);
+      setFilteredMovies([filteredMovie]);
+    } else {
+      setFilteredMovies(movies);
+    }
+  }, [movies, movieId]);
 
   const handleSearch = () => {
-    // console.log(searchValue);
-    // console.log(filteredMovies);
-
     if (searchValue === "") {
       setFilteredMovies(movies);
     } else {
@@ -33,6 +34,11 @@ export default function MoviesPage() {
     }
   };
 
+  const handleAllMovies = () => {
+    setSearchValue("");
+    setFilteredMovies(movies);
+  };
+
   return (
     <div>
       <div className="search-container">
@@ -40,7 +46,7 @@ export default function MoviesPage() {
           type="text"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-        />
+        />{" "}
         <button onClick={handleSearch}>Find</button>
       </div>
       <div className="movies-container">
