@@ -56,6 +56,32 @@ const appReducer = (state = {}, action) => {
       return { ...state, movies: filteredMovies };
     case "SET_MEMBERS":
       return { ...state, members: action.payload };
+    case "UPDATE_MEMBER_MOVIES_WATCHED":
+      const { memberId, subscription } = action.payload;
+
+      // Find the index of the member to be updated
+      const memberIndex = state.members.findIndex(
+        (member) => member._id === memberId
+      );
+
+      // Create a copy of the member object and add the moviesWatched property
+      const updatedMember = { ...state.members[memberIndex] };
+      if (!updatedMember.moviesWatched) {
+        updatedMember.moviesWatched = [];
+      }
+
+      // Add the movie to the member's moviesWatched array
+      updatedMember.moviesWatched.push(subscription);
+
+      // Create a new members array with the updated member object
+      const updatedMembers = [
+        ...state.members.slice(0, memberIndex),
+        updatedMember,
+        ...state.members.slice(memberIndex + 1),
+      ];
+
+      return { ...state, members: updatedMembers };
+
     default:
       return state;
   }

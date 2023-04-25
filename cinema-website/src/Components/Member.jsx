@@ -15,6 +15,7 @@ export default function Member(props) {
   const navigate = useNavigate();
 
   const editMember = () => {
+    console.log(member);
     navigate(`/subscriptions/edit_member/${member._id}`, { state: { member } });
   };
 
@@ -29,7 +30,7 @@ export default function Member(props) {
       <button onClick={editMember}>Edit</button> <button>Delete</button>
       <br />
       <br />
-      {<MoviesWatched data={member?.moviesWatched} />}
+      {<MoviesWatched data={member?.moviesWatched} memberId={member._id} />}
       <br />
       <br />
     </div>

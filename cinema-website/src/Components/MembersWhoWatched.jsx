@@ -20,7 +20,7 @@ export default function MembersWhoWatched(props) {
             <a href="" onClick={(e) => handleMemberClick(e, member._id)}>
               {member.name}
             </a>{" "}
-            add date
+            , {member.date}
           </li>
         ))}
       </ul>

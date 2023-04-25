@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import SubscribeToMovie from "./SubscribeToMovie";
 
 export default function MoviesWatched(props) {
   const movies = useSelector((state) => state.movies);
+  const [showSubscribe, setShowSubscribe] = useState(false);
 
   const moviesWatched = props?.data;
+  const memberId = props?.memberId;
 
   const navigate = useNavigate();
 
@@ -14,9 +17,18 @@ export default function MoviesWatched(props) {
     // Find the movie with the given id in the state
     navigate(`/movies?id=${movieId}`);
   };
+
+  const handleSubscribeClick = () => {
+    setShowSubscribe(!showSubscribe);
+  };
+
   return (
     <div>
-      <button>Subscribe to new movie</button>
+      <button onClick={handleSubscribeClick}>Subscribe to new movie</button>
+      {showSubscribe && (
+        <SubscribeToMovie data={moviesWatched} memberId={memberId} />
+      )}
+
       <h2>Movies Watched:</h2>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ul>
@@ -25,8 +37,8 @@ export default function MoviesWatched(props) {
               <li key={index}>
                 <a href="" onClick={(e) => handleMemberClick(e, movie.id)}>
                   {movie.name}
-                </a>{" "}
-                add date
+                </a>
+                , {movie.date}
               </li>
             ))}
         </ul>

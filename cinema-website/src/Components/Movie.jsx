@@ -6,9 +6,7 @@ import crud from "../Utils/Crud";
 
 export default function Movie(props) {
   const [movie, setMovie] = useState(props.data);
-  //   const [movie, setMovie] = useState((state) =>
-  //     state?.movies?.filter((movie) => movie?.id == props.data)
-  //   );
+
   const premieredYear = new Date(movie?.premiered).getFullYear();
 
   useEffect(() => {
