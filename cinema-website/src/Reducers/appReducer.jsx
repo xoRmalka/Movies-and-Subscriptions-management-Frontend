@@ -100,6 +100,10 @@ const appReducer = (state = {}, action) => {
         ...state.members.slice(updatedMemberIndex + 1),
       ];
       return { ...state, members: updatedMembers };
+    case "ADD_MEMBER":
+      // Create a new members array with the added member object
+      const addedMembers = [...state.members, action.payload];
+      return { ...state, members: addedMembers };
 
     default:
       return state;
