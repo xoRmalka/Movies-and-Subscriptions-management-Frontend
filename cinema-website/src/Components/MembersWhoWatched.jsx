@@ -8,7 +8,7 @@ export default function MembersWhoWatched(props) {
 
   const handleMemberClick = (e, memberId) => {
     e.preventDefault();
-    navigate(`/subscriptions/edit_member/${memberId}`);
+    navigate(`/subscriptions?memberId=${memberId}`);
   };
 
   return (

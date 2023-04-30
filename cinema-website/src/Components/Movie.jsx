@@ -28,9 +28,17 @@ export default function Movie(props) {
       );
 
       dispatch({ type: "DELETE_MOVIE", payload: movie._id });
+
+      const { data: members } = await crud.getAllItems(
+        "http://localhost:8000/subscriptions/members"
+      );
+      dispatch({ type: "SET_MEMBERS", payload: members });
     } catch (error) {
       console.log("Error deleteing movie: ", error);
     }
+
+    // redirect back to the "All Movies" page
+    navigate("/movies");
   };
 
   return (

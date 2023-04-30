@@ -54,6 +54,11 @@ export default function EditMoviePage() {
       );
 
       dispatch({ type: "UPDATE_MOVIE", payload: movie });
+
+      const { data: members } = await crud.getAllItems(
+        "http://localhost:8000/subscriptions/members"
+      );
+      dispatch({ type: "SET_MEMBERS", payload: members });
     } catch (error) {
       console.log("Error updating movie: ", error);
     }

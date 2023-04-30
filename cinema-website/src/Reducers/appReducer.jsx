@@ -74,19 +74,33 @@ const appReducer = (state = {}, action) => {
       updatedMember.moviesWatched.push(subscription);
 
       // Create a new members array with the updated member object
-      const updatedMembers = [
+      const updatedMembersMoviesWatched = [
         ...state.members.slice(0, memberIndex),
         updatedMember,
         ...state.members.slice(memberIndex + 1),
       ];
 
-      return { ...state, members: updatedMembers };
+      return { ...state, members: updatedMembersMoviesWatched };
     case "DELETE_MEMBER":
       // Filter out the member to be deleted
       const filteredMembers = state.members.filter(
         (member) => member._id !== action.payload
       );
       return { ...state, members: filteredMembers };
+    case "UPDATE_MEMBER":
+      // Find the index of the member to be updated
+      const updatedMemberIndex = state.members.findIndex(
+        (member) => member._id === action.payload._id
+      );
+
+      // Create a new members array with the updated member object
+      const updatedMembers = [
+        ...state.members.slice(0, updatedMemberIndex),
+        action.payload,
+        ...state.members.slice(updatedMemberIndex + 1),
+      ];
+      return { ...state, members: updatedMembers };
+
     default:
       return state;
   }

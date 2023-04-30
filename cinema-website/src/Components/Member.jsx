@@ -34,6 +34,8 @@ export default function Member(props) {
     } catch (error) {
       console.log("Error deleteing movie: ", error);
     }
+
+    navigate("/subscriptions");
   };
 
   return (
