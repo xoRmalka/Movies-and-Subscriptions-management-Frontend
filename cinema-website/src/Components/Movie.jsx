@@ -31,9 +31,6 @@ export default function Movie(props) {
     } catch (error) {
       console.log("Error deleteing movie: ", error);
     }
-
-    // redirect back to the "All Movies" page
-    navigate("/movies");
   };
 
   return (

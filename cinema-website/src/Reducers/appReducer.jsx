@@ -81,7 +81,12 @@ const appReducer = (state = {}, action) => {
       ];
 
       return { ...state, members: updatedMembers };
-
+    case "DELETE_MEMBER":
+      // Filter out the member to be deleted
+      const filteredMembers = state.members.filter(
+        (member) => member._id !== action.payload
+      );
+      return { ...state, members: filteredMembers };
     default:
       return state;
   }

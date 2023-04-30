@@ -17,7 +17,7 @@ export default function MembersWhoWatched(props) {
       <ul>
         {membersWhoWatched.map((member, index) => (
           <li key={index}>
-            <a href="" onClick={(e) => handleMemberClick(e, member._id)}>
+            <a href="" onClick={(e) => handleMemberClick(e, member.memberId)}>
               {member.name}
             </a>{" "}
             , {member.date}

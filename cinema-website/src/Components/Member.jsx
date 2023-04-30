@@ -15,8 +15,25 @@ export default function Member(props) {
   const navigate = useNavigate();
 
   const editMember = () => {
-    console.log(member);
     navigate(`/subscriptions/edit_member/${member._id}`, { state: { member } });
+  };
+
+  const deleteMember = async () => {
+    try {
+      await crud.deleteItem(
+        "http://localhost:8000/subscriptions/subscription",
+        member._id
+      );
+
+      dispatch({ type: "DELETE_MEMBER", payload: member._id });
+
+      const { data: movies } = await crud.getAllItems(
+        "http://localhost:8000/subscriptions/movies"
+      );
+      dispatch({ type: "SET_MOVIES", payload: movies });
+    } catch (error) {
+      console.log("Error deleteing movie: ", error);
+    }
   };
 
   return (
@@ -27,7 +44,8 @@ export default function Member(props) {
       <span>City: {member?.city}</span>
       <br />
       <br />
-      <button onClick={editMember}>Edit</button> <button>Delete</button>
+      <button onClick={editMember}>Edit</button>{" "}
+      <button onClick={deleteMember}>Delete</button>
       <br />
       <br />
       {<MoviesWatched data={member?.moviesWatched} memberId={member._id} />}
