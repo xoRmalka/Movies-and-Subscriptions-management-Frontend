@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import { useNavigate, Link, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import crud from "../../Utils/Crud";
-import NavBar from "../../Components/NavBar";
 
 export default function SubscriptionsManagementPage() {
   const navigate = useNavigate();
+
   const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
 
   const verifyToken = async () => {
     const token = storeData?.token;
-    //sessionStorage.getItem("token");
 
     try {
       const { data } = await crud.createItem(
@@ -32,13 +32,17 @@ export default function SubscriptionsManagementPage() {
   return (
     <div>
       <div style={{ border: "1px solid" }}>
-        {/* <Link to="add_user">Add User</Link> <br />
-        <Link to="">All users</Link> <br /> */}
         <h2>Subscriptions</h2>{" "}
-        <button onClick={() => navigate("/subscriptions")}>All Members</button>{" "}
-        <button onClick={() => navigate("/subscriptions/add_member")}>
-          Add Member
-        </button>
+        {permissions?.includes("view subscriptions") && (
+          <button onClick={() => navigate("/subscriptions")}>
+            All Members
+          </button>
+        )}{" "}
+        {permissions?.includes("create subscriptions") && (
+          <button onClick={() => navigate("/subscriptions/add_member")}>
+            Add Member
+          </button>
+        )}
         <br />
         <Outlet />
       </div>

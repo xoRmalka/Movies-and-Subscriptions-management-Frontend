@@ -1,8 +1,7 @@
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import crud from "./Utils/Crud";
 
 import "./App.css";

@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import Member from "../../Components/Member";
 
 export default function AllMembersPage() {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
+
   const members = useSelector((state) => state.members);
   const [selectedMember, setSelectedMember] = useState(null);
   const location = useLocation();
@@ -16,23 +19,25 @@ export default function AllMembersPage() {
 
     // Set selectedMember to the memberId or null if it's not present
     setSelectedMember(
-      memberId ? members.find((m) => m._id === memberId) : null
+      memberId ? members?.find((m) => m._id === memberId) : null
     );
   }, [members, location]);
 
   return (
     <div>
-      <div>
-        {selectedMember ? (
-          // Render the selected member if one is selected
-          <Member data={selectedMember} />
-        ) : (
-          // Otherwise, render all members
-          members?.map((member, index) => {
-            return <Member data={member} key={index} />;
-          })
-        )}
-      </div>
+      {permissions?.includes("view subscriptions") && (
+        <div>
+          {selectedMember ? (
+            // Render the selected member if one is selected
+            <Member data={selectedMember} />
+          ) : (
+            // Otherwise, render all members
+            members?.map((member, index) => {
+              return <Member data={member} key={index} />;
+            })
+          )}
+        </div>
+      )}
     </div>
   );
 }

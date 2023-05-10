@@ -13,7 +13,6 @@ export default function SubscribeToMovie(props) {
     name: "",
     date: "",
   });
-  const [isValid, setIsValid] = useState(false); // <-- Add isValid state variable
 
   const moviesWatched = props?.data;
   const memberId = props?.memberId;
@@ -78,7 +77,7 @@ export default function SubscribeToMovie(props) {
   return (
     <div>
       <h3>Subscribe to a new movie</h3>
-      {!isValid && isSubscribeDisabled && (
+      {isSubscribeDisabled && (
         <p style={{ color: "red" }}>Please select a movie and a date</p>
       )}
       -

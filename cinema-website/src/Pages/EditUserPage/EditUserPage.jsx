@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import crud from "../../Utils/Crud";
 
 export default function EditUserPage() {
   const location = useLocation();
-  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

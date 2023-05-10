@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import crud from "../../Utils/Crud";
 
 export default function AddMemberPage() {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,26 +40,42 @@ export default function AddMemberPage() {
 
   return (
     <div>
-      <h2>Add Member</h2>
-      <label>
-        Name:
-        <input name="name" value={member.name} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input name="email" value={member.email} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        City:
-        <input name="city" value={member.city} onChange={handleInputChange} />
-      </label>
-      <br />
-      <br />
-      <br />
-      <button onClick={addMember}>Save</button>{" "}
-      <button onClick={() => navigate("/subscriptions")}>Cancel</button>
+      {permissions?.includes("create subscriptions") && (
+        <div>
+          <h2>Add Member</h2>
+          <label>
+            Name:
+            <input
+              name="name"
+              value={member.name}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            Email:
+            <input
+              name="email"
+              value={member.email}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            City:
+            <input
+              name="city"
+              value={member.city}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <br />
+          <br />
+          <button onClick={addMember}>Save</button>{" "}
+          <button onClick={() => navigate("/subscriptions")}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 }

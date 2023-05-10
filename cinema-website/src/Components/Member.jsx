@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import crud from "../Utils/Crud";
 import MoviesWatched from "./moviesWatched";
 
 export default function Member(props) {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
+
   const [member, setMember] = useState(props.data);
 
   useEffect(() => {
@@ -46,8 +49,12 @@ export default function Member(props) {
       <span>City: {member?.city}</span>
       <br />
       <br />
-      <button onClick={editMember}>Edit</button>{" "}
-      <button onClick={deleteMember}>Delete</button>
+      {permissions?.includes("update subscriptions") && (
+        <button onClick={editMember}>Edit</button>
+      )}{" "}
+      {permissions?.includes("delete subscriptions") && (
+        <button onClick={deleteMember}>Delete</button>
+      )}
       <br />
       <br />
       {<MoviesWatched data={member?.moviesWatched} memberId={member._id} />}

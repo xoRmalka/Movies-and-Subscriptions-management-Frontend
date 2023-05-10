@@ -5,6 +5,9 @@ import Movie from "../../Components/Movie";
 import "./MoviesPage.css";
 
 export default function MoviesPage() {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
+
   const movies = useSelector((state) => state.movies);
 
   const [searchValue, setSearchValue] = useState("");
@@ -15,7 +18,7 @@ export default function MoviesPage() {
 
   useEffect(() => {
     if (movieId) {
-      const filteredMovie = movies.find((movie) => movie._id === movieId);
+      const filteredMovie = movies?.find((movie) => movie._id === movieId);
       setFilteredMovies([filteredMovie]);
     } else {
       setFilteredMovies(movies);
@@ -34,26 +37,25 @@ export default function MoviesPage() {
     }
   };
 
-  const handleAllMovies = () => {
-    setSearchValue("");
-    setFilteredMovies(movies);
-  };
-
   return (
     <div>
-      <div className="search-container">
-        <input
-          type="text"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />{" "}
-        <button onClick={handleSearch}>Find</button>
-      </div>
-      <div className="movies-container">
-        {filteredMovies.map((movie, index) => {
-          return <Movie data={movie} key={index} />;
-        })}
-      </div>
+      {permissions?.includes("view movies") && (
+        <div>
+          <div className="search-container">
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />{" "}
+            <button onClick={handleSearch}>Find</button>
+          </div>
+          <div className="movies-container">
+            {filteredMovies?.map((movie, index) => {
+              return <Movie data={movie} key={index} />;
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

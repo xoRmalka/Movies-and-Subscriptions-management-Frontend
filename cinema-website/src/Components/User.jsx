@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import crud from "../Utils/Crud";
 
@@ -17,7 +17,6 @@ export default function User(props) {
   const deleteUser = async () => {
     try {
       await crud.deleteItem("http://localhost:8000/cinema", user._id);
-      // Dispatch the DELETE_USER action with the user id as payload
       dispatch({ type: "DELETE_USER", payload: user._id });
     } catch (error) {
       console.log("Error deleting user: ", error);
@@ -32,8 +31,6 @@ export default function User(props) {
       <br />
       Permissions:
       <div style={{ display: "flex", justifyContent: "center" }}>
-        {/*!!! use JOIN()? {movie?.genres.join(", ")!!! */}
-
         <ul style={{ listStylePosition: "inside", textAlign: "left" }}>
           {user?.permissions?.map((permission, index) => (
             <li key={index}>{permission}</li>

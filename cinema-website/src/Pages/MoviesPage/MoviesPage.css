@@ -4,6 +4,14 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.movie-container {
+  width: 23%;
+  margin-bottom: 20px;
+}
+.movie-container img {
+  max-width: 100%;
+  height: auto;
+}
 
 @media (max-width: 767px) {
   .movies-container {
@@ -11,19 +19,8 @@
   }
 }
 
-.movie-container {
-  width: 23%;
-  margin-bottom: 20px;
-}
-
 @media (max-width: 767px) {
   .movie-container {
     width: 45%;
   }
 }
-
-/* .movies-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-} */

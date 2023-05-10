@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MembersWhoWatched from "./MembersWhoWatched";
 import crud from "../Utils/Crud";
 
 export default function Movie(props) {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
   const [movie, setMovie] = useState(props.data);
 
   const premieredYear = new Date(movie?.premiered).getFullYear();
@@ -37,7 +39,6 @@ export default function Movie(props) {
       console.log("Error deleteing movie: ", error);
     }
 
-    // redirect back to the "All Movies" page
     navigate("/movies");
   };
 
@@ -54,8 +55,12 @@ export default function Movie(props) {
         <MembersWhoWatched data={movie.membersWhoWatched} />
       )}
       <br />
-      <button onClick={editMovie}>Edit</button>{" "}
-      <button onClick={deleteMovie}>Delete</button>
+      {permissions?.includes("update movies") && (
+        <button onClick={editMovie}>Edit</button>
+      )}{" "}
+      {permissions?.includes("delete movies") && (
+        <button onClick={deleteMovie}>Delete</button>
+      )}
       <br />
       <br />
     </div>

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import crud from "../../Utils/Crud";
 
 export default function EditMemberPage() {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
+
   const location = useLocation();
   const params = useParams();
   const dispatch = useDispatch();
@@ -47,26 +50,42 @@ export default function EditMemberPage() {
   };
   return (
     <div>
-      <h2>Edit Member: {member.name}</h2>
-      <label>
-        Name:
-        <input name="name" value={member.name} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input name="email" value={member.email} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        City:
-        <input name="city" value={member.city} onChange={handleInputChange} />
-      </label>
-      <br />
-      <br />
-      <br />
-      <button onClick={updateState}>Update</button>{" "}
-      <button onClick={() => navigate("/subscriptions")}>Cancel</button>
+      {permissions?.includes("update subscriptions") && (
+        <div>
+          <h2>Edit Member: {member.name}</h2>
+          <label>
+            Name:
+            <input
+              name="name"
+              value={member.name}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            Email:
+            <input
+              name="email"
+              value={member.email}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            City:
+            <input
+              name="city"
+              value={member.city}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <br />
+          <br />
+          <button onClick={updateState}>Update</button>{" "}
+          <button onClick={() => navigate("/subscriptions")}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 }

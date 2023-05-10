@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import crud from "../../Utils/Crud";
 
 export default function EditMoviePage() {
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
   const location = useLocation();
   const params = useParams();
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ export default function EditMoviePage() {
       name: "",
       genres: "",
       image: "",
-      premiered: "", //new Date().toISOString().substr(0, 10) = today date
+      premiered: "",
     }
   );
 
@@ -68,39 +70,51 @@ export default function EditMoviePage() {
 
   return (
     <div>
-      <h2>Edit Movie: {movie.name}</h2>
-      <label>
-        Name:
-        <input name="name" value={movie.name} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Genres:
-        <input
-          name="genres"
-          value={movie.genres}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <label>
-        Image URL:
-        <input name="image" value={movie.image} onChange={handleInputChange} />
-      </label>
-      <br />
-      <label>
-        Premiered:
-        <input
-          name="premiered"
-          type="date"
-          value={movie.premiered}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <button onClick={updateState}>Update</button>{" "}
-      <button onClick={() => navigate("/movies")}>Cancel</button>
+      {permissions?.includes("update movies") && (
+        <div>
+          <h2>Edit Movie: {movie.name}</h2>
+          <label>
+            Name:
+            <input
+              name="name"
+              value={movie.name}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            Genres:
+            <input
+              name="genres"
+              value={movie.genres}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            Image URL:
+            <input
+              name="image"
+              value={movie.image}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <label>
+            Premiered:
+            <input
+              name="premiered"
+              type="date"
+              value={movie.premiered}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+          <br />
+          <button onClick={updateState}>Update</button>{" "}
+          <button onClick={() => navigate("/movies")}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 }

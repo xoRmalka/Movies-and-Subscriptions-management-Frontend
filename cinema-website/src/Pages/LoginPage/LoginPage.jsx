@@ -11,10 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Use the useNavigate hook from react-router-dom to navigate to other pages
   const navigate = useNavigate();
-
-  // Use the useDispatch hook from react-redux to update the global state of the application
   const dispatch = useDispatch();
 
   // The handleLogin function attempts to create a new login session
@@ -39,26 +36,28 @@ export default function LoginPage() {
           "http://localhost:8000/cinema/"
         );
         dispatch({ type: "SET_USERS", payload: users });
+      }
 
-        //!!!!!!CHECK PRMISSION!!!!!
+      if (data.user.permissions.includes("view movies")) {
         const { data: movies } = await crud.getAllItems(
           "http://localhost:8000/subscriptions/movies"
         );
         dispatch({ type: "SET_MOVIES", payload: movies });
       }
 
-      //!!!!!!CHECK PRMISSION!!!!!
-      const { data: members } = await crud.getAllItems(
-        "http://localhost:8000/subscriptions/members"
-      );
-      dispatch({ type: "SET_MEMBERS", payload: members });
+      if (data.user.permissions.includes("view subscriptions")) {
+        const { data: members } = await crud.getAllItems(
+          "http://localhost:8000/subscriptions/members"
+        );
+        dispatch({ type: "SET_MEMBERS", payload: members });
+      }
 
       // Navigate to the home page
       navigate("/");
     } catch (e) {
       // If the request fails, set an error message in the component's state
       setErrorMessage(e.response?.data?.msg);
-      // console.log(e);
+      console.log(e);
     }
   };
 

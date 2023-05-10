@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import SubscribeToMovie from "./SubscribeToMovie";
 
 export default function MoviesWatched(props) {
-  const movies = useSelector((state) => state.movies);
+  const storeData = useSelector((state) => state);
+  const permissions = storeData?.user?.permissions;
+
   const [showSubscribe, setShowSubscribe] = useState(false);
 
   const moviesWatched = props?.data;
@@ -24,7 +26,9 @@ export default function MoviesWatched(props) {
 
   return (
     <div>
-      <button onClick={handleSubscribeClick}>Subscribe to new movie</button>
+      {permissions?.includes("update subscriptions") && (
+        <button onClick={handleSubscribeClick}>Subscribe to new movie</button>
+      )}
       {showSubscribe && (
         <SubscribeToMovie data={moviesWatched} memberId={memberId} />
       )}
