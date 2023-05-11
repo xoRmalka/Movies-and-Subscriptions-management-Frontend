@@ -5,18 +5,17 @@ const getAllItems = (url) => {
 };
 
 const getItem = (url, id) => {
-  return axios.get(url + "/" + id); // url/id
+  return axios.get(url + "/" + id);
 };
 
 const createItem = (url, obj) => {
   return axios.post(url, obj);
 };
 const updateItem = (url, id, obj) => {
-  // delete obj._id;
-  return axios.put(url + "/" + id, obj); // 1st param: url/id, 2nd param: obj
+  return axios.put(url + "/" + id, obj); 
 };
 const deleteItem = (url, id) => {
-  return axios.delete(url + "/" + id); // 1st param: url/id
+  return axios.delete(url + "/" + id); 
 };
 
 export default { getAllItems, getItem, createItem, updateItem, deleteItem };
